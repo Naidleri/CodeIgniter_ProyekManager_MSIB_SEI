@@ -61,14 +61,21 @@ class ProyekController extends CI_Controller {
     }
 
     public function edit_lokasi($id) {
-        $data['lokasi'] = json_decode($this->http_request('http://localhost:8080/lokasi/' . $id));
-        $this->load->view('edit_lokasi_view', $data);
+        $all_lokasi = json_decode($this->http_request('http://localhost:8080/lokasi'));
+        $data['lokasi'] = array_filter($all_lokasi, function($l) use ($id) {
+            return $l->id == $id;
+        });
+        if (empty($data['lokasi'])) {
+            show_404();
+        }
+        $data['lokasi'] = array_values($data['lokasi'])[0]; 
+        $this->load->view('edit_lokasi', $data);
     }
 
     public function update_lokasi($id) {
         $data = $this->input->post();
         $this->http_request('http://localhost:8080/lokasi/' . $id, 'PUT', $data);
-        redirect('home');
+        redirect('/');
     }
 
     public function edit_proyek($id) {
@@ -83,16 +90,16 @@ class ProyekController extends CI_Controller {
         }, $data['lokasi']);
         unset($data['lokasi']);
         $this->http_request('http://localhost:8080/proyek/' . $id, 'PUT', $data);
-        redirect('home');
+        redirect('/');
     }
 
     public function delete_lokasi($id) {
         $this->http_request('http://localhost:8080/lokasi/' . $id, 'DELETE');
-        redirect('home');
+        redirect('/');
     }
 
     public function delete_proyek($id) {
         $this->http_request('http://localhost:8080/proyek/' . $id, 'DELETE');
-        redirect('home');
+        redirect('/');
     }
 }

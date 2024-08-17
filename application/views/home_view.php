@@ -43,6 +43,10 @@
                                 </ul>
                             <?php endif; ?>
                         </td>
+                        <td>
+                            <a href="<?= site_url('proyek/edit/' . $p->id) ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="<?= site_url('proyek/delete/' . $p->id) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus proyek ini?')">Delete</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -51,8 +55,9 @@
         <div class="mt-4">
             <a href="<?= site_url('add_proyek') ?>" class="btn btn-primary me-2">Tambah Proyek</a>
         </div>
-
-        <h2 class="mt-5 mb-3">Lokasi</h2>
+    </div>
+    <div class = "container">
+    <h2 class="mt-5 mb-3">Lokasi</h2>
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
@@ -71,6 +76,10 @@
                         <td><?= $l->negara ?></td>
                         <td><?= $l->provinsi ?></td>
                         <td><?= $l->kota ?></td>
+                        <td>
+                            <a href="<?= site_url('lokasi/edit/' . $l->id) ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="<?= site_url('lokasi/delete/' . $l->id) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus lokasi ini?')">Delete</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
