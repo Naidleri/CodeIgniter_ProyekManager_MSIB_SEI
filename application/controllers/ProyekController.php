@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class ProyekController extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -35,19 +35,29 @@ class Home extends CI_Controller {
     }
 
     public function add_lokasi() {
+        $this->load->view('add_lokasi');
+    }
+
+    public function save_lokasi() {
         $data = $this->input->post();
         $this->http_request('http://localhost:8080/lokasi', 'POST', $data);
-        redirect('home');
+        redirect('/');
     }
 
     public function add_proyek() {
+        $url_lokasi = 'http://localhost:8080/lokasi';
+        $data['lokasi'] = json_decode($this->http_request($url_lokasi));
+        $this->load->view('add_proyek', $data);
+    }
+
+    public function save_proyek() {
         $data = $this->input->post();
         $data['lokasiList'] = array_map(function($id) {
             return ['id' => $id];
         }, $data['lokasi']);
         unset($data['lokasi']);
         $this->http_request('http://localhost:8080/proyek', 'POST', $data);
-        redirect('home');
+        redirect('/');
     }
 
     public function edit_lokasi($id) {
