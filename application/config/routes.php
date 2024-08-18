@@ -9,6 +9,7 @@ $route['default_controller'] = 'proyekcontroller';
 $route['add_proyek'] = 'proyekcontroller/add_proyek';
 $route['proyek/save'] = 'proyekcontroller/save_proyek';
 $route['add_lokasi'] = 'proyekcontroller/add_lokasi';
+$route['proyek/save'] = 'proyekcontroller/save_proyek';
 $route['lokasi/save'] = 'proyekcontroller/save_lokasi';
 $route['proyek/edit/(:num)'] = 'proyekcontroller/edit_proyek/$1';
 $route['proyek/update/(:num)'] = 'proyekcontroller/update_proyek/$1';
