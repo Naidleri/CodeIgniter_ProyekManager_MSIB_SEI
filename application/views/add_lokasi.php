@@ -30,11 +30,11 @@
                     <label for="kota" class="form-label">Kota:</label>
                     <input type="text" name="kota" class="form-control">
                 </div>
-
-                <button type="submit" class="btn btn-primary">Tambah Lokasi</button>
-            </form>
-
-            <a href="<?= site_url('/') ?>" class="btn btn-secondary mt-3">Kembali ke Beranda</a>
+                <div class="d-flex justify-content-between mt-3"> 
+                    <a href="<?= site_url('/') ?>" class="btn btn-secondary mt-3">Kembali ke Beranda</a>
+                    <button type="submit" class="btn btn-primary">Tambah Lokasi</button>
+                </div>
+            </form>        
         </div>
     </div>
 </body>
