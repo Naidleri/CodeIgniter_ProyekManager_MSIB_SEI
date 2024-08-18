@@ -14,6 +14,7 @@ class ProyekController extends CI_Controller {
 
         $data['proyek'] = json_decode($this->http_request($url_proyek));
         $data['lokasi'] = json_decode($this->http_request($url_lokasi));
+        $data['error'] = $this->input->get('error');
 
         $this->load->view('home_view', $data);
     }
@@ -40,7 +41,10 @@ class ProyekController extends CI_Controller {
 
     public function save_lokasi() {
         $data = $this->input->post();
-        $this->http_request('http://localhost:8080/lokasi', 'POST', $data);
+        $response = $this->http_request('http://localhost:8080/lokasi', 'POST', $data);
+        if ($response === false) {
+            redirect('/?error=Gagal menambahkan lokasi. Coba lagi.');
+        }
         redirect('/');
     }
 
@@ -56,11 +60,13 @@ class ProyekController extends CI_Controller {
             $data['lokasiList'] = [['id' => $data['lokasi']]];
         }
         unset($data['lokasi']);
-        $this->http_request('http://localhost:8080/proyek', 'POST', $data);
+        $response = $this->http_request('http://localhost:8080/proyek', 'POST', $data);
+        if ($response === false) {
+            redirect('/?error=Gagal menambahkan proyek. Coba lagi.');
+        }
         redirect('/');
     }
     
-
     public function edit_lokasi($id) {
         $all_lokasi = json_decode($this->http_request('http://localhost:8080/lokasi'));
         $data['lokasi'] = array_filter($all_lokasi, function($l) use ($id) {
@@ -75,7 +81,10 @@ class ProyekController extends CI_Controller {
 
     public function update_lokasi($id) {
         $data = $this->input->post();
-        $this->http_request('http://localhost:8080/lokasi/' . $id, 'PUT', $data);
+        $response = $this->http_request('http://localhost:8080/lokasi/' . $id, 'PUT', $data);
+        if ($response === false) {
+            redirect('/?error=Gagal memperbarui lokasi. Coba lagi.');
+        }
         redirect('/');
     }
 
@@ -96,20 +105,28 @@ class ProyekController extends CI_Controller {
         $this->load->view('edit_proyek', $data);
     }
     
-    
     public function update_proyek($id) {
         $data = $this->input->post();
-        $this->http_request('http://localhost:8080/proyek/' . $id, 'PUT', $data);
+        $response = $this->http_request('http://localhost:8080/proyek/' . $id, 'PUT', $data);
+        if ($response === false) {
+            redirect('/?error=Gagal memperbarui proyek. Coba lagi.');
+        }
         redirect('/');
     }
 
     public function delete_lokasi($id) {
-        $this->http_request('http://localhost:8080/lokasi/' . $id, 'DELETE');
+        $response = $this->http_request('http://localhost:8080/lokasi/' . $id, 'DELETE');
+        if ($response === false) {
+            redirect('/?error=Gagal menghapus lokasi. Coba lagi.');
+        }
         redirect('/');
     }
 
     public function delete_proyek($id) {
-        $this->http_request('http://localhost:8080/proyek/' . $id, 'DELETE');
+        $response = $this->http_request('http://localhost:8080/proyek/' . $id, 'DELETE');
+        if ($response === false) {
+            redirect('/?error=Gagal menghapus proyek. Coba lagi.');
+        }
         redirect('/');
     }
 }

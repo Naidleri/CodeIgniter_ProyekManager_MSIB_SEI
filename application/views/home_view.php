@@ -10,6 +10,12 @@
     <div class="container my-5">
         <h1 class="mb-4">Proyek Manager</h1>
 
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $error ?>
+            </div>
+        <?php endif; ?>
+
         <h2 class="mb-3">Proyek</h2>
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -56,8 +62,9 @@
             <a href="<?= site_url('add_proyek') ?>" class="btn btn-primary me-2">Tambah Proyek</a>
         </div>
     </div>
-    <div class = "container">
-    <h2 class="mt-5 mb-3">Lokasi</h2>
+
+    <div class="container">
+        <h2 class="mt-5 mb-3">Lokasi</h2>
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
