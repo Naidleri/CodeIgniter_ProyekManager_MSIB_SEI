@@ -52,13 +52,14 @@ class ProyekController extends CI_Controller {
 
     public function save_proyek() {
         $data = $this->input->post();
-        $data['lokasiList'] = array_map(function($id) {
-            return ['id' => $id];
-        }, $data['lokasi']);
+        if (isset($data['lokasi']) && !empty($data['lokasi'])) {
+            $data['lokasiList'] = [['id' => $data['lokasi']]];
+        }
         unset($data['lokasi']);
         $this->http_request('http://localhost:8080/proyek', 'POST', $data);
         redirect('/');
     }
+    
 
     public function edit_lokasi($id) {
         $all_lokasi = json_decode($this->http_request('http://localhost:8080/lokasi'));
